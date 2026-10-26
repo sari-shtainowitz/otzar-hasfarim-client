@@ -1,0 +1,397 @@
+/* ===== אוצר הספרים – עיצוב כללי (לפי הדמה) ===== */
+@import url("https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Assistant:wght@400;600;700&display=swap");
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css";
+@theme {
+  --color-bg: #fbf8f1;
+  --color-ink: #2f3b43;
+  --color-gold: #8a6a24;
+  --color-muted: #5b5346;
+  --color-line: #d9d2c3;
+  --color-error: #b42318;
+}
+:root { --bg: #fbf8f1; --ink: #2f3b43; --gold: #8a6a24; --muted: #5b5346; --line: #d9d2c3; --error: #b42318; }
+* { box-sizing: border-box; }
+body {
+  @apply m-0 min-h-[100vh] text-[18px] text-ink;
+  direction: rtl;
+  font-family: "Assistant", Arial, sans-serif;
+  background: linear-gradient(rgba(251, 248, 241, 0), rgba(251, 248, 241, 0.25)),
+    url("/hall.jpg") center / cover no-repeat fixed,
+    var(--bg);
+}
+a { @apply text-ink; }
+a:hover { @apply text-gold; }
+
+/* ===== ראש הדף ===== */
+header { @apply flex flex-wrap items-center gap-y-4 gap-x-6 max-w-295 my-0 mx-auto py-5 px-6 font-black text-[30px] border-b-[3px] border-b-gold; font-family: "Frank Ruhl Libre", serif; }
+header::before { @apply w-37.5 h-25 flex-none; content: ""; background: url("/logo.png") center / contain no-repeat; }
+header a {
+  @apply inline-flex items-center min-h-11 py-0 px-5.5 rounded-[10px] bg-gold text-white text-[18px] font-bold no-underline;
+  font-family: "Assistant", sans-serif;
+}
+header a:hover { @apply text-white bg-[#735819]; }
+main { @apply max-w-295 my-0 mx-auto pt-0 px-6 pb-10; }
+h1, h2 { @apply font-black; font-family: "Frank Ruhl Libre", serif; }
+
+/* ===== טפסים (כניסה, הרשמה ועוד) ===== */
+form {
+  @apply w-full max-w-120 my-10 mx-auto py-8 px-9 flex flex-col bg-[rgba(255,255,255,0.96)] border border-line rounded-[18px];
+  box-shadow: 0 12px 36px rgba(47, 59, 67, 0.14);
+}
+#root > form { @apply mt-[12vh]; }
+#root > form::before { @apply h-27.5 mb-4.5; content: ""; background: url("/logo.png") center / contain no-repeat; }
+input { @apply min-h-13.5 py-0 px-4 border-[1.5px] border-[#c9c0ad] rounded-[10px] text-[20px] text-ink bg-bg; font-family: inherit; }
+input:focus { @apply border-gold; outline: none; box-shadow: 0 0 0 3px rgba(138, 106, 36, 0.2); }
+form p { @apply min-h-[1.4em] mt-1 mx-0.5 mb-3 text-[15px] text-error; }
+button { @apply min-h-13.5 py-0 px-6 rounded-xl bg-ink text-bg text-[20px] font-bold cursor-pointer; border: 0; font-family: inherit; }
+button:hover { @apply bg-[#1f282e]; }
+form a { @apply mt-4.5 text-center text-[16px]; }
+
+/* ===== דף החיפוש (לפי הדמה) ===== */
+main form { @apply max-w-none mt-2 mx-0 mb-5 p-5 grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-3; align-items: end; }
+main form input { @apply min-h-13; }
+main form button { @apply min-h-13 bg-gold; }
+main form button:hover { @apply bg-[#735819]; }
+main > p { @apply mt-0 mx-1 mb-2.5 text-muted text-[16px]; }
+table {
+  @apply w-full bg-[rgba(255,255,255,0.55)] rounded-[14px] overflow-hidden text-[18px];
+  border-collapse: collapse;
+  backdrop-filter: blur(2px);
+  border: 1px solid var(--line);
+}
+thead th { @apply py-3 px-3.5 bg-[rgba(95,100,104,0.88)] text-white font-bold text-[16px] text-right; }
+tbody td { @apply py-2.5 px-3.5 text-[#2f3b43]; border-bottom: 1px solid rgba(217, 210, 195, 0.7); }
+tbody tr { @apply cursor-pointer; }
+tbody tr:hover { @apply bg-[rgba(244,236,217,0.85)]; }
+th:first-child,
+td:first-child { @apply w-27.5 text-center; }
+tbody td:first-child { @apply font-black text-[22px] text-ink; font-family: "Frank Ruhl Libre", serif; }
+tbody td a { @apply font-bold text-ink no-underline; }
+tbody td a:hover { @apply text-gold underline; }
+@media (max-width: 640px) {
+  table { @apply block overflow-x-auto whitespace-nowrap; }
+}
+
+/* ===== דף הספר (לפי הדמה) ===== */
+main:has(> h1):has(> h2) { @apply grid grid-cols-[repeat(12,minmax(0,1fr))] gap-0 pt-6; }
+main:has(> h1):has(> h2) > button { @apply mb-5.5; grid-row: 1; grid-column: 10 / 13; justify-self: end; }
+main:has(> h1):has(> h2) > p:has(+ p + p + p + h2) {
+  @apply m-0 py-9 px-5 flex items-center justify-center text-center bg-ink text-bg font-black text-[56px] leading-[1.1];
+  grid-row: 2 / 4;
+  grid-column: 1 / 4;
+  font-family: "Frank Ruhl Libre", serif;
+  border-radius: 0 16px 16px 0;
+  box-shadow: 0 8px 28px rgba(47, 59, 67, 0.12);
+}
+main:has(> h1):has(> h2) > h1 {
+  @apply m-0 pt-8 px-9 pb-3.5 text-[56px] leading-[1.1] bg-[rgba(255,255,255,0.95)];
+  grid-row: 2;
+  grid-column: 4 / 13;
+  border: 1px solid var(--line);
+  border-bottom: 0;
+  border-right: 0;
+  border-radius: 16px 0 0 0;
+}
+main:has(> h1):has(> h2) > p:has(+ p + p + h2),
+main:has(> h1):has(> h2) > p:has(+ p + h2),
+main:has(> h1):has(> h2) > p:has(+ h2) {
+  @apply row-[3] m-0 pt-2 pr-9 pb-7.5 pl-3 text-[20px] font-semibold text-ink whitespace-nowrap overflow-hidden text-ellipsis bg-[rgba(255,255,255,0.95)] border-b border-b-line;
+}
+main:has(> h1):has(> h2) > p:has(+ p + p + h2) { @apply col-[4/8]; }
+main:has(> h1):has(> h2) > p:has(+ p + h2) { @apply col-[8/12] pr-3; }
+main:has(> h1):has(> h2) > p:has(+ h2) { @apply col-[12/13] border-l border-l-line; padding-right: 4px; padding-left: 16px; border-radius: 0 0 0 16px; }
+main:has(> h1):has(> h2) > p:has(+ p + p + p + p + h2),
+main:has(> h1):has(> h2) > p:has(+ p + p + p + p + p + h2) { @apply col-[1/-1] mt-0 mx-0 mb-3 text-[18px]; }
+main:has(> h1):has(> h2) > h2 { @apply col-[1/-1] mt-7.5 mx-1.5 mb-3 text-[26px]; }
+main:has(> h1):has(> h2) > h2 ~ p { @apply col-[span_3] m-0 p-1.5; }
+main:has(> h1):has(> h2) > h2 ~ p a {
+  @apply block leading-[30px] py-3 px-3.5 border border-[#e3dccb] rounded-[10px] bg-[rgba(251,248,241,0.92)] text-[18px] font-bold text-ink no-underline whitespace-nowrap overflow-hidden text-ellipsis;
+}
+main:has(> h1):has(> h2) > h2 ~ p a:hover { @apply bg-[#f4ecd9] border-[2px] border-gold text-ink; }
+@media (max-width: 720px) {
+  main:has(> h1):has(> h2) { @apply grid-cols-[minmax(0,1fr)]; }
+  main:has(> h1):has(> h2) > * { grid-column: 1 !important; grid-row: auto !important; }
+  main:has(> h1):has(> h2) > button { justify-self: start; }
+  main:has(> h1):has(> h2) > p:has(+ p + p + p + h2) { @apply text-[40px] p-5; border-radius: 16px 16px 0 0; }
+  main:has(> h1):has(> h2) > h1 { @apply rounded-none border-r border-r-line text-[34px] pt-5.5 px-5 pb-2.5; }
+  main:has(> h1):has(> h2) > p:has(+ p + p + h2),
+  main:has(> h1):has(> h2) > p:has(+ p + h2),
+  main:has(> h1):has(> h2) > p:has(+ h2) {
+    @apply py-2 px-5 whitespace-normal;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
+  }
+  main:has(> h1):has(> h2) > p:has(+ h2) { @apply border-b border-b-line pb-5; border-radius: 0 0 16px 16px; }
+}
+
+/* ===== ספרים חדשים ===== */
+main:has(> h1):not(:has(> h2)) > h1 { @apply mt-7 mx-0 mb-1 text-[44px]; }
+main:has(> h1):not(:has(> h2)) > h1::after { @apply block w-22.5 h-1 mt-3 rounded-xs bg-gold; content: ""; }
+main:has(> h1):not(:has(> h2)) > p { @apply mt-2 mx-0 mb-5.5 text-[19px] text-muted; }
+main:has(> h1):not(:has(> h2)) table,
+main:has(> h1):not(:has(> h2)) tbody { @apply block overflow-visible; background: none; border: 0; backdrop-filter: none; }
+main:has(> h1):not(:has(> h2)) thead { @apply hidden; }
+main:has(> h1):not(:has(> h2)) tbody {
+  @apply grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-y-6.5 gap-x-5 pt-9 px-7 pb-10 border-[14px] border-[#7a5a1e] rounded-[10px];
+  background: radial-gradient(rgba(122, 90, 30, 0.10) 1px, transparent 1.5px) 0 0 / 14px 14px,
+    #e9dcc0;
+  box-shadow: inset 0 0 0 2px #b8954a,
+    inset 0 6px 18px rgba(60, 40, 10, 0.25),
+    0 14px 34px rgba(47, 59, 67, 0.18);
+}
+main:has(> h1):not(:has(> h2)) tbody tr {
+  @apply relative flex flex-col gap-1.5 pt-6.5 px-5 pb-5 bg-[#fffdf7] rounded-[3px];
+  border: 0;
+  box-shadow: 0 6px 14px rgba(60, 40, 10, 0.22);
+  transform: rotate(-1.5deg);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+main:has(> h1):not(:has(> h2)) tbody tr:nth-child(2n) { transform: rotate(1.2deg); }
+main:has(> h1):not(:has(> h2)) tbody tr:nth-child(3n) { transform: rotate(-0.6deg); }
+main:has(> h1):not(:has(> h2)) tbody tr:hover { @apply bg-white z-[1]; transform: rotate(0deg) scale(1.03); box-shadow: 0 12px 26px rgba(60, 40, 10, 0.28); }
+main:has(> h1):not(:has(> h2)) tbody tr::before {
+  @apply absolute -top-2.25 left-[50%] w-4.5 h-4.5 -ml-2.25 rounded-[50%];
+  content: "";
+  background: radial-gradient(circle at 35% 35%, #e3c37a, #8a6a24 70%);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.35);
+}
+main:has(> h1):not(:has(> h2)) tbody td { @apply block w-auto p-0 text-right text-[16px] text-muted; border: 0; }
+main:has(> h1):not(:has(> h2)) tbody td:first-child { @apply self-start mb-1 py-0.5 px-3 rounded-lg bg-ink text-bg text-[18px]; }
+main:has(> h1):not(:has(> h2)) tbody td:first-child::before { @apply font-semibold text-[14px]; content: "מדף "; font-family: "Assistant", sans-serif; }
+main:has(> h1):not(:has(> h2)) tbody td:nth-child(2) a { @apply text-[24px] font-black leading-[1.2]; font-family: "Frank Ruhl Libre", serif; }
+main:has(> h1):not(:has(> h2)) tbody td:nth-child(2) a:hover { @apply no-underline; }
+main:has(> h1):not(:has(> h2)) tbody td:nth-child(4) { @apply text-ink font-semibold; }
+@media (max-width: 640px) {
+  main:has(> h1):not(:has(> h2)) table { @apply whitespace-normal; }
+}
+main:has(> h1):not(:has(> h2)) > button { @apply block mt-0 mr-0 mb-6.5 ml-auto; }
+
+/* ===== הערה לגבאי (לפי הדמה) ===== */
+main:has(> h1):has(> form):not(:has(> h2)) { @apply grid grid-cols-[minmax(0,760px)] justify-center pt-6.5; }
+main:has(> h1):has(> form):not(:has(> h2)) > h1 { @apply z-[1] m-0 pt-7.5 px-9 pb-0 text-[40px] pointer-events-none; grid-area: 2 / 1; }
+main:has(> h1):has(> form):not(:has(> h2)) > h1::after {
+  @apply block w-auto h-auto mt-1.5 text-[18px] font-normal text-muted;
+  content: "שתפו את הגבאי בכל מה שראיתם באוצר הספרים";
+  background: none;
+  font-family: "Assistant", sans-serif;
+}
+main:has(> h1):has(> form):not(:has(> h2)) > form {
+  @apply flex flex-col items-stretch gap-0 max-w-none mt-0 mx-0 mb-7.5 pt-34 px-9 pb-8 bg-[rgba(255,255,255,0.96)] border border-line rounded-2xl;
+  grid-area: 2 / 1;
+  box-shadow: 0 8px 28px rgba(47, 59, 67, 0.10);
+}
+main:has(> h1):has(> form):not(:has(> h2)) > form select,
+main:has(> h1):has(> form):not(:has(> h2)) > form input,
+main:has(> h1):has(> form):not(:has(> h2)) > form textarea {
+  @apply w-full min-h-14 py-0 px-4 border-[1.5px] border-[#c9c0ad] rounded-[10px] text-[20px] text-ink bg-bg;
+  font-family: inherit;
+}
+main:has(> h1):has(> form):not(:has(> h2)) > form select { @apply font-bold cursor-pointer; }
+main:has(> h1):has(> form):not(:has(> h2)) > form textarea { @apply min-h-32.5 py-3 px-4 leading-[1.5] resize-none; }
+main:has(> h1):has(> form):not(:has(> h2)) > form select:focus,
+main:has(> h1):has(> form):not(:has(> h2)) > form input:focus,
+main:has(> h1):has(> form):not(:has(> h2)) > form textarea:focus { @apply border-gold; outline: none; box-shadow: 0 0 0 3px rgba(138, 106, 36, 0.2); }
+main:has(> h1):has(> form):not(:has(> h2)) > form p { @apply min-h-0 mt-1.5 mx-0.5 mb-4 text-[15px] text-error; }
+main:has(> h1):has(> form):not(:has(> h2)) > form button { @apply self-stretch min-h-15 mt-1.5 bg-gold text-[22px]; }
+main:has(> h1):has(> form):not(:has(> h2)) > form button:hover { @apply bg-[#735819]; }
+main:has(> h1):has(> form):not(:has(> h2)) > form button:disabled { @apply opacity-[0.6] cursor-wait; }
+main:has(> h1):has(> form):not(:has(> h2)) > form button ~ p {
+  @apply mt-5 mx-0 mb-0 py-5.5 px-5 rounded-[14px] bg-ink text-bg text-center text-[24px] font-bold;
+  font-family: "Frank Ruhl Libre", serif;
+}
+main:has(> h1):not(:has(> h2)):not(:has(> form)):not(:has(table)) {
+  @apply max-w-190 mt-6.5 mx-auto mb-10 py-7.5 px-9 bg-[rgba(255,255,255,0.96)] border border-line rounded-2xl;
+  box-shadow: 0 8px 28px rgba(47, 59, 67, 0.10);
+}
+main:has(> h1):not(:has(> h2)):not(:has(> form)):not(:has(table)) > h1 { @apply mt-0; }
+main:has(> h1):not(:has(> h2)):not(:has(> form)):not(:has(table)) > a {
+  @apply inline-flex items-center min-h-13 py-0 px-7.5 rounded-[10px] bg-gold text-white text-[20px] font-bold no-underline;
+}
+
+/* ===== רשימת הבחירה של סוג ההערה ===== */
+main:has(> h1):has(> form):not(:has(> h2)) > form select,
+main:has(> h1):has(> form):not(:has(> h2)) > form select::picker(select) { appearance: base-select; }
+main:has(> h1):has(> form):not(:has(> h2)) > form select { @apply flex items-center justify-between; }
+main:has(> h1):has(> form):not(:has(> h2)) > form select::picker-icon { @apply text-gold; transition: rotate 0.2s; }
+main:has(> h1):has(> form):not(:has(> h2)) > form select:open::picker-icon { rotate: 180deg; }
+main:has(> h1):has(> form):not(:has(> h2)) > form select::picker(select) {
+  @apply mt-1.5 p-1.5 border border-line rounded-xl bg-white;
+  box-shadow: 0 14px 34px rgba(47, 59, 67, 0.18);
+}
+main:has(> h1):has(> form):not(:has(> h2)) > form option { @apply py-3 px-4 rounded-lg text-[19px] font-semibold text-ink bg-transparent cursor-pointer; }
+main:has(> h1):has(> form):not(:has(> h2)) > form option:hover,
+main:has(> h1):has(> form):not(:has(> h2)) > form option:focus { @apply bg-[#f4ecd9] text-ink; outline: none; }
+main:has(> h1):has(> form):not(:has(> h2)) > form option:checked { @apply bg-ink text-bg; }
+main:has(> h1):has(> form):not(:has(> h2)) > form option::checkmark { @apply hidden; }
+main:has(> h1):has(> form):not(:has(> h2)) > form option[value=""] { @apply text-muted font-normal; }
+main:has(> h1):has(> form):not(:has(> h2)) > form option[value=""]:checked { @apply bg-transparent text-muted; }
+main:has(> h1):not(:has(> h2)):has(table) { @apply flex flex-col pt-6; }
+main:has(> h1):not(:has(> h2)):has(table) > button { @apply order-[-1] self-end mt-0 mx-0 mb-1.5; }
+main:has(> h1):not(:has(> h2)):has(table) > h1 { @apply mt-0; }
+main:has(> h1):has(> form):not(:has(> h2)) > button { @apply mt-0 mx-0 mb-4.5; grid-area: 1 / 1; justify-self: end; }
+
+/* ===== חלון אישור (למשל לפני מחיקה) ===== */
+.modal {
+  @apply fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[rgba(31,40,46,0.55)];
+  backdrop-filter: blur(3px);
+  animation: modal-fade 0.15s ease;
+}
+.modal-box {
+  @apply w-full max-w-110 pt-7.5 px-8 pb-6.5 bg-white border-t-[6px] border-t-gold rounded-2xl text-center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  animation: modal-pop 0.18s ease;
+}
+.modal-box h3 { @apply mt-0 mx-0 mb-2.5 text-[28px] font-black text-ink; font-family: "Frank Ruhl Libre", serif; }
+.modal-box p { @apply mt-0 mx-0 mb-6 text-[19px] text-muted; }
+.modal-box button { @apply min-w-35 my-0 mx-1.5; }
+.modal-box button:first-of-type { @apply bg-error text-white; }
+.modal-box button:first-of-type:hover { @apply bg-[#8f1c13]; }
+.modal-box button:last-of-type { @apply bg-transparent text-ink border-[2px] border-ink; }
+.modal-box button:last-of-type:hover { @apply bg-ink text-bg; }
+@keyframes modal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modal-pop { from { transform: scale(0.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* ===== הוספת ספר / עריכת ספר ===== */
+main:has(> h1):has(> form):not(:has(> h2)):not(:has(select)) > h1::after { content: "שם הספר חובה. שאר הפרטים – אם ידועים"; }
+main:has(> h1):has(> form):not(:has(> h2)) > form ~ p { @apply mt-0 mx-0 mb-5 py-3.5 px-4.5 rounded-[10px] bg-[#fbe9e7] text-error font-bold; }
+
+/* ===== ניהול ספרים בדף החיפוש (רק לגבאי) ===== */
+main:has(> table):not(:has(> h1)) > a[href="/admin/books/new"] {
+  @apply order-[-1] self-end mt-4.5 mx-0 mb-3.5 flex items-center gap-2.5 min-h-13.5 pt-0 pr-6.5 pb-0 pl-7 rounded-[999px] bg-gold text-white text-[20px] font-bold no-underline;
+  border: 0;
+  box-shadow: 0 8px 22px rgba(138, 106, 36, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+main:has(> table):not(:has(> h1)) > a[href="/admin/books/new"]::before { @apply text-[30px] font-normal leading-[1]; content: "+"; }
+main:has(> table):not(:has(> h1)) > a[href="/admin/books/new"]:hover {
+  @apply bg-[#735819] text-white;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(47, 59, 67, 0.38);
+}
+main:has(> table):not(:has(> h1)):has(> a[href="/admin/books/new"]) { @apply flex flex-col; }
+tbody td:nth-child(5) { @apply w-52.5 whitespace-nowrap text-left; }
+tbody td:nth-child(5) a {
+  @apply inline-flex items-center min-h-9.5 py-0 px-4 ml-2 border-[1.5px] border-ink rounded-lg bg-white text-ink text-[16px] font-bold no-underline;
+}
+tbody td:nth-child(5) a:hover { @apply bg-ink text-bg no-underline; }
+tbody td:nth-child(5) button { @apply min-h-9.5 py-0 px-4 border-[1.5px] border-error rounded-lg bg-white text-error text-[16px] font-bold; }
+tbody td:nth-child(5) button:hover { @apply bg-error text-white; }
+tbody tr:has(td:nth-child(5)) { @apply cursor-default; }
+thead th:nth-child(5) { @apply text-left pl-5.5; }
+
+/* ===== דף "הערות המתפללים" (לגבאי) ===== */
+main:has(> h2):not(:has(> h1)) { @apply grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-5.5 items-stretch pt-6; }
+main:has(> h2):not(:has(> h1)) > h2,
+main:has(> h2):not(:has(> h1)) > p,
+main:has(> h2):not(:has(> h1)) > button { @apply col-[1/-1]; }
+main:has(> h2):not(:has(> h1)) > button { @apply row-[1] self-center m-0; justify-self: end; }
+main:has(> h2):not(:has(> h1)) > h2 { @apply row-[1] mt-0 mx-0 mb-2 text-[40px]; }
+main:has(> h2):not(:has(> h1)) > h2::after { @apply block w-22.5 h-1 mt-3 rounded-xs bg-gold; content: ""; }
+main:has(> h2):not(:has(> h1)) > p { @apply m-0 text-[19px] text-muted; }
+main:has(> h2):not(:has(> h1)) > div {
+  @apply grid items-center h-82.5 gap-y-2.5 gap-x-3 pt-5 px-5.5 pb-4 bg-[rgba(255,255,255,0.97)] border border-[#e4dccb] rounded-2xl;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "type   status"
+    "title  title"
+    "msg    msg"
+    "sender sender"
+    "actions actions";
+  grid-template-rows: auto auto 1fr auto auto;
+  box-shadow: 0 6px 20px rgba(47, 59, 67, 0.08);
+}
+main:has(> h2):not(:has(> h1)) > div > p { @apply m-0; }
+main:has(> h2):not(:has(> h1)) > div > p:empty { @apply hidden; }
+main:has(> h2):not(:has(> h1)) > div > p:nth-child(1) { @apply whitespace-nowrap text-[15px] font-bold text-gold; grid-area: type; }
+main:has(> h2):not(:has(> h1)) > div > p:nth-child(1)::before { @apply inline-block w-2 h-2 ml-2 rounded-[50%] bg-gold align-middle; content: ""; }
+main:has(> h2):not(:has(> h1)) > div > p:nth-child(5) {
+  @apply whitespace-nowrap py-0.75 px-3 rounded-[999px] bg-[#f3efe6] text-muted text-[14px] font-bold;
+  grid-area: status;
+  justify-self: end;
+}
+main:has(> h2):not(:has(> h1)) > div > p:nth-child(2) {
+  @apply text-[24px] font-black leading-[1.25] text-ink;
+  grid-area: title;
+  font-family: "Frank Ruhl Libre", serif;
+}
+main:has(> h2):not(:has(> h1)) > div > p:nth-child(2)::before {
+  @apply text-[16px] font-semibold text-muted;
+  content: "שם הספר: ";
+  font-family: "Assistant", sans-serif;
+}
+main:has(> h2):not(:has(> h1)) > div > p:nth-child(2) { @apply overflow-hidden whitespace-nowrap text-ellipsis; }
+main:has(> h2):not(:has(> h1)) > div > p:nth-child(3) {
+  @apply self-stretch min-h-0 py-3 px-3.5 rounded-[10px] bg-[#faf6ec] text-[17px] leading-[1.55] text-ink;
+  grid-area: msg;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+}
+main:has(> h2):not(:has(> h1)) > div > p:nth-child(4) { @apply text-[15px] text-muted; grid-area: sender; }
+main:has(> h2):not(:has(> h1)) > div > p:nth-child(4)::before { content: "נשלח על ידי:\00a0"; }
+main:has(> h2):not(:has(> h1)) > div > div { @apply flex gap-2 mt-1 pt-3.5 border-t border-t-[#efe9dc]; grid-area: actions; }
+main:has(> h2):not(:has(> h1)) > div button {
+  @apply min-h-9 py-0 px-3.5 border-[1.5px] border-[#ddd4c2] flex-1 rounded-[999px] bg-white text-ink text-[15px] font-bold whitespace-nowrap;
+}
+main:has(> h2):not(:has(> h1)) > div button:hover { @apply border-gold bg-[#fbf6ea]; }
+main:has(> h2):not(:has(> h1)) > div button:nth-child(3) { @apply border-gold bg-gold text-white; }
+main:has(> h2):not(:has(> h1)) > div button:nth-child(3):hover { @apply bg-[#735819] border-[#735819]; }
+main:has(> h2):not(:has(> h1)) > div.new { @apply bg-[#fffaf0] border-[2px] border-gold; box-shadow: 0 10px 28px rgba(138, 106, 36, 0.25); }
+main:has(> h2):not(:has(> h1)) > div.new > p:nth-child(5) { @apply bg-gold text-white; }
+main:has(> h2):not(:has(> h1)) > div.new > p:nth-child(3) { @apply bg-[#f6ecd3]; }
+
+/* ===== סמן העכבר ===== */
+html,
+body {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><path d='M3 2 L3 22 L8.5 17 L12.5 25.5 L16 24 L12 15.8 L19.5 15.5 Z' fill='%232f3b43' stroke='%23c9a24a' stroke-width='1.6' stroke-linejoin='round'/></svg>") 3 2, auto;
+}
+a,
+button,
+select,
+tbody tr,
+label {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23fbf8f1' stroke='%238a6a24' stroke-width='1.8'/><path d='M8 11 Q12 9.5 15.3 11.2 L15.3 22.5 Q12 21 8 22 Z' fill='%238a6a24'/><path d='M24 11 Q20 9.5 16.7 11.2 L16.7 22.5 Q20 21 24 22 Z' fill='%238a6a24'/></svg>") 16 16, pointer;
+}
+input,
+textarea { @apply cursor-text; }
+button:disabled { @apply cursor-not-allowed; }
+
+/* ===== כפתור "חזרה" (className="back") – אותו מראה בכל הדפים ===== */
+.back { @apply min-h-12 py-0 px-5 text-[18px] bg-white/85 text-ink border-[1.5px] border-ink rounded-[10px] hover:bg-ink hover:text-bg; }
+
+/* ===== כפתור "עוד ספרים" מתחת לטבלה ===== */
+main > table + button {
+  @apply block self-center mt-6 mx-auto mb-0 min-h-12.5 py-0 px-8.5 border-[1.5px] border-gold rounded-[999px] bg-[rgba(255,255,255,0.92)] text-gold text-[18px] font-bold;
+}
+main > table + button:hover { @apply bg-gold text-white; }
+
+/* ===== דף הדפסת הקטלוג (className="catalog") ===== */
+.catalog tbody tr { @apply cursor-default; }
+.catalog td:last-child,
+.catalog th:last-child { @apply w-17.5 text-center; }
+
+/* ===== בזמן הדפסה: רק הכותרת והטבלה, על נייר לבן ===== */
+@media print {
+@page {
+    size: A4;
+    margin: 14mm 12mm;
+  }
+  body { @apply bg-none! bg-white! text-[11pt]; }
+  header { @apply hidden!; }
+  main,
+  .catalog { @apply max-w-none p-0; }
+  .catalog > h1 { @apply mt-0 mx-0 mb-[2mm] text-[20pt]; }
+  .catalog > p { @apply mt-0 mx-0 mb-[5mm] text-[10pt]; }
+  .catalog table { @apply w-full border-collapse bg-none! bg-white! rounded-none text-[10pt]; box-shadow: none !important; }
+  .catalog thead { @apply table-header-group; }
+  .catalog thead th {
+    @apply bg-none! bg-[#eeeeee]! text-[#000000]! border-b-[1.5px] border-b-[#000000];
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .catalog th,
+  .catalog td { @apply py-[1.6mm]! px-[2mm]! border-b-[0.5px] border-b-[#999999] text-[#000000]!; }
+  .catalog tr { break-inside: avoid; }
+  .catalog tbody td:first-child { @apply text-[10pt] font-bold; font-family: inherit; }
+  .catalog tbody tr:nth-child(even) td { @apply bg-none! bg-[#f6f6f6]!; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
